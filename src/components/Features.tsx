@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Layout, PanelLeft, Palette, FileCode, Layers, Folder, Server, Wand2 } from "lucide-react";
+import { Layout, PanelLeft, Palette, FileCode, Layers, Folder, Server, Wand2, Globe } from "lucide-react";
 
 const Features = () => {
   return (
