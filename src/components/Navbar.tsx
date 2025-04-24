@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X, Moon, Sun, Laptop } from "lucide-react";
+import { Menu, X, Moon, Sun, Laptop, Save } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark" | "system">("light");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +40,14 @@ const Navbar = () => {
     setTheme(themeOptions[nextIndex]);
   };
 
+  const handleSave = () => {
+    setIsSaving(true);
+    // Имитация сохранения проекта
+    setTimeout(() => {
+      setIsSaving(false);
+    }, 1000);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -47,26 +56,36 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo-b.svg" alt="Веб-Мастер" className="h-8 w-auto" />
-          <span className="font-bold text-xl text-primary">Веб-Мастер</span>
+          <span className="font-bold text-xl text-primary">DEMLITE SITES</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
             Главная
           </Link>
+          <Link to="/builder" className="text-sm font-medium hover:text-primary transition-colors">
+            Конструктор
+          </Link>
           <Link to="/templates" className="text-sm font-medium hover:text-primary transition-colors">
             Шаблоны
           </Link>
-          <Link to="/features" className="text-sm font-medium hover:text-primary transition-colors">
-            Возможности
-          </Link>
-          <Link to="/pricing" className="text-sm font-medium hover:text-primary transition-colors">
-            Тарифы
+          <Link to="/hosting" className="text-sm font-medium hover:text-primary transition-colors">
+            Хостинг
           </Link>
         </nav>
 
         <div className="flex items-center gap-4">
+          <Button 
+            onClick={handleSave} 
+            variant="outline" 
+            size="sm"
+            className="gap-2"
+            disabled={isSaving}
+          >
+            <Save className="size-4" />
+            {isSaving ? "Сохранение..." : "Сохранить"}
+          </Button>
+
           <button
             onClick={toggleTheme}
             className="size-9 inline-flex items-center justify-center rounded-md hover:bg-accent transition-colors"
@@ -85,7 +104,7 @@ const Navbar = () => {
             <Button variant="outline" size="sm">
               Войти
             </Button>
-            <Button size="sm">Начать бесплатно</Button>
+            <Button size="sm">Опубликовать</Button>
           </div>
 
           <button
@@ -109,6 +128,13 @@ const Navbar = () => {
               Главная
             </Link>
             <Link
+              to="/builder"
+              className="py-2 px-3 rounded-md hover:bg-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Конструктор
+            </Link>
+            <Link
               to="/templates"
               className="py-2 px-3 rounded-md hover:bg-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
@@ -116,25 +142,18 @@ const Navbar = () => {
               Шаблоны
             </Link>
             <Link
-              to="/features"
+              to="/hosting"
               className="py-2 px-3 rounded-md hover:bg-accent transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Возможности
-            </Link>
-            <Link
-              to="/pricing"
-              className="py-2 px-3 rounded-md hover:bg-accent transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Тарифы
+              Хостинг
             </Link>
             <div className="flex gap-2 mt-2">
               <Button variant="outline" size="sm" className="flex-1">
                 Войти
               </Button>
               <Button size="sm" className="flex-1">
-                Начать
+                Опубликовать
               </Button>
             </div>
           </div>
